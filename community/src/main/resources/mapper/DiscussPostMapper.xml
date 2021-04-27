@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ayr.community.dao.DiscussPostMapper">
+
+    <!--查询的字段-->
+    <sql id="selectFields">
+        id,user_id,title,content,type,status,create_time,comment_count,score
+    </sql>
+
+    <!--用户自定义的类需要声明返回值类型-->
+    <select id="selectDiscussPosts" resultType="DiscussPost">
+        select <include refid="selectFields" />
+        from discuss_post
+        where status != 2
+        <if test="userId != 0">
+            and user_id = #{userId}
+        </if>
+        order by type desc, status desc,create_time desc
+        limit #{limit},#{offset}
+    </select>
+
+    <!--用户自定义的类需要声明返回值类型-->
+    <select id="selectDiscussPostCount" resultType="_int">
+        select count(id)
+        from discuss_post
+        where status != 2
+        <if test="userId != 0">
+            and user_id = #{userId}
+        </if>
+    </select>
+
+</mapper>

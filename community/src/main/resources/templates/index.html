@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>社区</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}">
+
+    <!-- App css -->
+    <link th:href="@{/assets/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/assets/css/icons.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/assets/css/style.css}" rel="stylesheet" type="text/css" />
+
+    <script src="assets/js/modernizr.min.js"></script>
+    <style>
+        .count{
+            margin-left: 4px;
+        }
+        .page_helper_nav{
+            width: 200px;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body style="background-color: white">
+
+    <div class="display_box">
+        <div class="discuss_post_list" style="width: 800px;margin: 0 auto">
+            <ul th:each="map:${discussPost}"  class="sortable-list taskList list-unstyled" id="upcoming">
+                <li class="task-warning" id="task1" >
+                    <div class="checkbox checkbox-custom checkbox-single pull-right">
+                        <span th:if="${map.post.type == 1}" class="badge badge-custom">置顶</span>
+                        <span th:if="${map.post.status == 1}" class="badge badge-danger">精华</span>
+                    </div>
+                    <font th:utext="${map.post.title}"></font>
+
+                    <div class="clearfix"></div>
+                    <div class="mt-3">
+                        <p class="pull-right mb-0 mt-2">
+                            <i class="dripicons-thumbs-up"></i><font class="count">点赞数</font>
+                            <i style="margin-left: 10px" class="dripicons-message"></i> <font class="count">回复数</font>
+                        </p>
+                        <p class="mb-0"><a href="" class="text-muted"><img src="assets/images/users/avatar-1.jpg" alt="task-user" class="thumb-sm rounded-circle mr-2">
+                            <span class="font-bold font-secondary" th:text="${map.user.username}">Petey Cruiser</span></a>
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div  class="page_helper_nav">
+            <nav>
+                <ul class="pagination pagination-split">
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{${page.path}(pageNo=1)}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <!--页面选择按钮-->
+                    <li th:each="i:${#numbers.sequence(1,page.pageCount)}" th:class="|page-item ${page.pageNo == i ? 'active' : '' }|">
+                        <a class="page-link" th:href="@{${page.path}(pageNo=${i})}" th:text="${i}">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{${page.path}(pageNo=${page.pageCount})}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+    <script th:src="@{/assets/js/jquery.min.js}"></script>
+    <script th:src="@{/assets/js/popper.min.js}"></script>
+    <script th:src="@{/assets/js/bootstrap.min.js}"></script>
+    <script th:src="@{/assets/js/waves.js}"></script>
+    <script th:src="@{/assets/js/jquery.slimscroll.js}"></script>
+
+    <!-- App js -->
+    <script th:src="@{/assets/js/jquery.core.js}"></script>
+    <script th:src="@{/assets/js/jquery.app.js}"></script>
+</body>
+</html>
